@@ -13,7 +13,9 @@ app.use(express.json());
 //     return res.status(401).send("No API key exist");
 //   }
 // });
-
+app.get("/", (req, res) => {
+  res.send("Welcome!")
+})
 app.post("/user/create", (req, res) => {
   fs.readFile("./db.json", "utf-8", (err, data) => {
     const parsed = JSON.parse(data);
@@ -92,7 +94,7 @@ app.post("/votes/vote/:user", (req, res) => {
 // });
 
 
-app.get("/db", (req, res) => {
+app.post("/db", (req, res) => {
     fs.readFile("./db.json", "utf-8", (err, data) => {
         const parsed = JSON.parse(data);
         parsed.users = [...parsed.users, req.body];
@@ -104,8 +106,10 @@ app.get("/db", (req, res) => {
 })
 
 
-app.post("/db", (req, res) => {
-    fs.readFile("./db.json", "utf-8", (err, data))
+app.get("/db", (req, res) => {
+    fs.readFile("./db.json", "utf-8", (err, data)=>{
+      res.send(data)
+    })
 })
 
 
